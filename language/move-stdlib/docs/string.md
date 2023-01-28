@@ -18,10 +18,12 @@ The <code><a href="string.md#0x1_string">string</a></code> module defines the <c
 -  [Function `insert`](#0x1_string_insert)
 -  [Function `sub_string`](#0x1_string_sub_string)
 -  [Function `index_of`](#0x1_string_index_of)
+-  [Function `length`](#0x1_string_length)
 -  [Function `internal_check_utf8`](#0x1_string_internal_check_utf8)
 -  [Function `internal_is_char_boundary`](#0x1_string_internal_is_char_boundary)
 -  [Function `internal_sub_string`](#0x1_string_internal_sub_string)
 -  [Function `internal_index_of`](#0x1_string_internal_index_of)
+-  [Function `internal_length`](#0x1_string_internal_length)
 
 
 <pre><code><b>use</b> <a href="option.md#0x1_option">0x1::option</a>;
@@ -333,7 +335,7 @@ guaranteeing that the result is valid utf8.
 
 ## Function `index_of`
 
-Computes the index of the first occurrence of a string. Returns <code>length(s)</code> if no occurrence found.
+Computes the index of the first occurrence of a string. Returns <code><a href="string.md#0x1_string_length">length</a>(s)</code> if no occurrence found.
 
 
 <pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_index_of">index_of</a>(s: &<a href="string.md#0x1_string_String">string::String</a>, r: &<a href="string.md#0x1_string_String">string::String</a>): u64
@@ -347,6 +349,31 @@ Computes the index of the first occurrence of a string. Returns <code>length(s)<
 
 <pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_index_of">index_of</a>(s: &<a href="string.md#0x1_string_String">String</a>, r: &<a href="string.md#0x1_string_String">String</a>): u64 {
     <a href="string.md#0x1_string_internal_index_of">internal_index_of</a>(&s.bytes, &r.bytes)
+}
+</code></pre>
+
+
+
+</details>
+
+<a name="0x1_string_length"></a>
+
+## Function `length`
+
+Returns the length (number of characters) of this string.
+
+
+<pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_length">length</a>(s: &<a href="string.md#0x1_string_String">string::String</a>): u64
+</code></pre>
+
+
+
+<details>
+<summary>Implementation</summary>
+
+
+<pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_length">length</a>(s: &<a href="string.md#0x1_string_String">String</a>): u64 {
+    <a href="string.md#0x1_string_internal_length">internal_length</a>(&s.bytes)
 }
 </code></pre>
 
@@ -436,6 +463,28 @@ Computes the index of the first occurrence of a string. Returns <code>length(s)<
 
 
 <pre><code><b>native</b> <b>fun</b> <a href="string.md#0x1_string_internal_index_of">internal_index_of</a>(v: &<a href="vector.md#0x1_vector">vector</a>&lt;u8&gt;, r: &<a href="vector.md#0x1_vector">vector</a>&lt;u8&gt;): u64;
+</code></pre>
+
+
+
+</details>
+
+<a name="0x1_string_internal_length"></a>
+
+## Function `internal_length`
+
+
+
+<pre><code><b>fun</b> <a href="string.md#0x1_string_internal_length">internal_length</a>(s: &<a href="vector.md#0x1_vector">vector</a>&lt;u8&gt;): u64
+</code></pre>
+
+
+
+<details>
+<summary>Implementation</summary>
+
+
+<pre><code><b>native</b> <b>fun</b> <a href="string.md#0x1_string_internal_length">internal_length</a>(s: &<a href="vector.md#0x1_vector">vector</a>&lt;u8&gt;): u64;
 </code></pre>
 
 

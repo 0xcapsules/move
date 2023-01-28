@@ -191,6 +191,44 @@ pub fn make_native_index_of(gas_params: IndexOfGasParameters) -> NativeFunction 
 }
 
 /***************************************************************************************************
+ * native fun internal_length
+ *
+ *   gas cost: base_cost + unit_cost * length_in_bytes
+ *
+ **************************************************************************************************/
+#[derive(Debug, Clone)]
+pub struct StringLengthGasParameters {
+    pub base: InternalGas,
+    pub per_byte: InternalGasPerByte,
+}
+
+fn native_length(
+    gas_params: &StringLengthGasParameters,
+    _context: &mut NativeContext,
+    _ty_args: Vec<Type>,
+    mut args: VecDeque<Value>,
+) -> PartialVMResult<NativeResult> {
+    debug_assert!(args.len() == 1);
+
+    let s_arg = pop_arg!(args, VectorRef);
+    let s_ref = s_arg.as_bytes_ref();
+
+    let s = std::str::from_utf8(&s_ref).unwrap();
+
+    // TODO(Gas): use chars length to compute the gas instead of bytes length
+    let cost = gas_params.base + gas_params.per_byte * NumBytes::new(s_ref.len() as u64);
+    NativeResult::map_partial_vm_result_one(cost, Ok(Value::u64(s.chars().count() as u64)))
+}
+
+pub fn make_native_length(gas_params: StringLengthGasParameters) -> NativeFunction {
+    Arc::new(
+        move |context, ty_args, args| -> PartialVMResult<NativeResult> {
+            native_length(&gas_params, context, ty_args, args)
+        },
+    )
+}
+
+/***************************************************************************************************
  * module
  **************************************************************************************************/
 #[derive(Debug, Clone)]
@@ -199,6 +237,7 @@ pub struct GasParameters {
     pub is_char_boundary: IsCharBoundaryGasParameters,
     pub sub_string: SubStringGasParameters,
     pub index_of: IndexOfGasParameters,
+    pub length: StringLengthGasParameters,
 }
 
 pub fn make_all(gas_params: GasParameters) -> impl Iterator<Item = (String, NativeFunction)> {
@@ -218,6 +257,10 @@ pub fn make_all(gas_params: GasParameters) -> impl Iterator<Item = (String, Nati
         (
             "internal_index_of",
             make_native_index_of(gas_params.index_of),
+        ),
+        (
+            "internal_length",
+            make_native_length(gas_params.length),
         ),
     ];
 

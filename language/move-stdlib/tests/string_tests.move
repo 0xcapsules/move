@@ -75,4 +75,11 @@ module std::string_tests {
         string::insert(&mut s, 1, string::utf8(b"xy"));
         assert!(s == string::utf8(b"axybcd"), 22)
     }
+
+    #[test]
+    fun test_length() {
+        let s = string::utf8(b"abcdefghxyz");
+        let s_len = string::length(&s);
+        assert!(s_len == 11, 22)
+    }
 }
