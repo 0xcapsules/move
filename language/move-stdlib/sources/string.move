@@ -39,8 +39,8 @@ module std::string {
         vector::is_empty(&s.bytes)
     }
 
-    /// Returns the length of this string, in bytes.
-    public fun length(s: &String): u64 {
+    /// Returns the size of this string, in bytes.
+    public fun size(s: &String): u64 {
         vector::length(&s.bytes)
     }
 
@@ -59,7 +59,7 @@ module std::string {
     public fun insert(s: &mut String, at: u64, o: String) {
         let bytes = &s.bytes;
         assert!(at <= vector::length(bytes) && internal_is_char_boundary(bytes, at), EINVALID_INDEX);
-        let l = length(s);
+        let l = size(s);
         let front = sub_string(s, 0, at);
         let end = sub_string(s, at, l);
         append(&mut front, o);

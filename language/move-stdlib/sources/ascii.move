@@ -114,7 +114,7 @@ module std::ascii {
         ensures len(string.bytes) == len(old(string.bytes)) - 1;
     }
 
-    public fun length(string: &String): u64 {
+    public fun size(string: &String): u64 {
         vector::length(as_bytes(string))
     }
 

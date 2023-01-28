@@ -16,7 +16,7 @@ that characters are valid ASCII, and that strings consist of only valid ASCII ch
 -  [Function `all_characters_printable`](#0x1_ascii_all_characters_printable)
 -  [Function `push_char`](#0x1_ascii_push_char)
 -  [Function `pop_char`](#0x1_ascii_pop_char)
--  [Function `length`](#0x1_ascii_length)
+-  [Function `size`](#0x1_ascii_size)
 -  [Function `as_bytes`](#0x1_ascii_as_bytes)
 -  [Function `into_bytes`](#0x1_ascii_into_bytes)
 -  [Function `byte`](#0x1_ascii_byte)
@@ -380,13 +380,13 @@ Returns <code><b>false</b></code> otherwise. Not all <code><a href="ascii.md#0x1
 
 </details>
 
-<a name="0x1_ascii_length"></a>
+<a name="0x1_ascii_size"></a>
 
-## Function `length`
+## Function `size`
 
 
 
-<pre><code><b>public</b> <b>fun</b> <a href="ascii.md#0x1_ascii_length">length</a>(<a href="string.md#0x1_string">string</a>: &<a href="ascii.md#0x1_ascii_String">ascii::String</a>): u64
+<pre><code><b>public</b> <b>fun</b> <a href="ascii.md#0x1_ascii_size">size</a>(<a href="string.md#0x1_string">string</a>: &<a href="ascii.md#0x1_ascii_String">ascii::String</a>): u64
 </code></pre>
 
 
@@ -395,7 +395,7 @@ Returns <code><b>false</b></code> otherwise. Not all <code><a href="ascii.md#0x1
 <summary>Implementation</summary>
 
 
-<pre><code><b>public</b> <b>fun</b> <a href="ascii.md#0x1_ascii_length">length</a>(<a href="string.md#0x1_string">string</a>: &<a href="ascii.md#0x1_ascii_String">String</a>): u64 {
+<pre><code><b>public</b> <b>fun</b> <a href="ascii.md#0x1_ascii_size">size</a>(<a href="string.md#0x1_string">string</a>: &<a href="ascii.md#0x1_ascii_String">String</a>): u64 {
     <a href="vector.md#0x1_vector_length">vector::length</a>(<a href="ascii.md#0x1_ascii_as_bytes">as_bytes</a>(<a href="string.md#0x1_string">string</a>))
 }
 </code></pre>

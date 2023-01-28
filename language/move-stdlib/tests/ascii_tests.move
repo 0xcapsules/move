@@ -34,7 +34,7 @@ module std::ascii_tests {
         };
 
         assert!(vector::length(ascii::as_bytes(&str)) == 128, 0);
-        assert!(ascii::length(&str) == 128, 0);
+        assert!(ascii::size(&str) == 128, 0);
         assert!(!ascii::all_characters_printable(&str), 1);
     }
 
@@ -56,7 +56,7 @@ module std::ascii_tests {
         };
 
         assert!(vector::length(ascii::as_bytes(&str)) == 0, 0);
-        assert!(ascii::length(&str) == 0, 0);
+        assert!(ascii::size(&str) == 0, 0);
         assert!(ascii::all_characters_printable(&str), 1);
     }
 

@@ -6,7 +6,7 @@ module std::string_tests {
     fun test_valid_utf8() {
         let sparkle_heart = vector[240, 159, 146, 150];
         let s = string::utf8(sparkle_heart);
-        assert!(string::length(&s) == 4, 22);
+        assert!(string::size(&s) == 4, 22);
     }
 
     #[test]
@@ -14,7 +14,7 @@ module std::string_tests {
     fun test_invalid_utf8() {
         let no_sparkle_heart = vector[0, 159, 146, 150];
         let s = string::utf8(no_sparkle_heart);
-        assert!(string::length(&s) == 1, 22);
+        assert!(string::size(&s) == 1, 22);
     }
 
     #[test]

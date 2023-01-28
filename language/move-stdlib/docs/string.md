@@ -12,7 +12,7 @@ The <code><a href="string.md#0x1_string">string</a></code> module defines the <c
 -  [Function `try_utf8`](#0x1_string_try_utf8)
 -  [Function `bytes`](#0x1_string_bytes)
 -  [Function `is_empty`](#0x1_string_is_empty)
--  [Function `length`](#0x1_string_length)
+-  [Function `size`](#0x1_string_size)
 -  [Function `append`](#0x1_string_append)
 -  [Function `append_utf8`](#0x1_string_append_utf8)
 -  [Function `insert`](#0x1_string_insert)
@@ -188,14 +188,14 @@ Checks whether this string is empty.
 
 </details>
 
-<a name="0x1_string_length"></a>
+<a name="0x1_string_size"></a>
 
-## Function `length`
+## Function `size`
 
-Returns the length of this string, in bytes.
+Returns the size of this string, in bytes.
 
 
-<pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_length">length</a>(s: &<a href="string.md#0x1_string_String">string::String</a>): u64
+<pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_size">size</a>(s: &<a href="string.md#0x1_string_String">string::String</a>): u64
 </code></pre>
 
 
@@ -204,7 +204,7 @@ Returns the length of this string, in bytes.
 <summary>Implementation</summary>
 
 
-<pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_length">length</a>(s: &<a href="string.md#0x1_string_String">String</a>): u64 {
+<pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_size">size</a>(s: &<a href="string.md#0x1_string_String">String</a>): u64 {
     <a href="vector.md#0x1_vector_length">vector::length</a>(&s.bytes)
 }
 </code></pre>
@@ -283,7 +283,7 @@ boundary.
 <pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_insert">insert</a>(s: &<b>mut</b> <a href="string.md#0x1_string_String">String</a>, at: u64, o: <a href="string.md#0x1_string_String">String</a>) {
     <b>let</b> bytes = &s.bytes;
     <b>assert</b>!(at &lt;= <a href="vector.md#0x1_vector_length">vector::length</a>(bytes) && <a href="string.md#0x1_string_internal_is_char_boundary">internal_is_char_boundary</a>(bytes, at), <a href="string.md#0x1_string_EINVALID_INDEX">EINVALID_INDEX</a>);
-    <b>let</b> l = <a href="string.md#0x1_string_length">length</a>(s);
+    <b>let</b> l = <a href="string.md#0x1_string_size">size</a>(s);
     <b>let</b> front = <a href="string.md#0x1_string_sub_string">sub_string</a>(s, 0, at);
     <b>let</b> end = <a href="string.md#0x1_string_sub_string">sub_string</a>(s, at, l);
     <a href="string.md#0x1_string_append">append</a>(&<b>mut</b> front, o);
@@ -333,7 +333,7 @@ guaranteeing that the result is valid utf8.
 
 ## Function `index_of`
 
-Computes the index of the first occurrence of a string. Returns <code><a href="string.md#0x1_string_length">length</a>(s)</code> if no occurrence found.
+Computes the index of the first occurrence of a string. Returns <code>length(s)</code> if no occurrence found.
 
 
 <pre><code><b>public</b> <b>fun</b> <a href="string.md#0x1_string_index_of">index_of</a>(s: &<a href="string.md#0x1_string_String">string::String</a>, r: &<a href="string.md#0x1_string_String">string::String</a>): u64
